@@ -1,11 +1,14 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 import { styled, alpha } from '@mui/material/styles';
 import SearchIcon from '@mui/icons-material/Search';
 import InputBase from '@mui/material/InputBase';
+import { useAuth } from '../../context/AuthContext';
 
 
 const InputSearch = () => {
+
+
     const Search = styled('div')(({ theme }) => ({
         position: 'relative',
         borderRadius: theme.shape.borderRadius,
@@ -46,6 +49,8 @@ const InputSearch = () => {
         },
       }));
 
+      const { search, setSearch } = useAuth();
+
   return (
     <div>
         <Search>
@@ -54,7 +59,12 @@ const InputSearch = () => {
             </SearchIconWrapper>
             <StyledInputBase
               placeholder="Search…"
-              inputProps={{ 'aria-label': 'search' }}
+              autoFocus
+              inputProps={{ 'aria-label': 'search', 'focus' : true }}
+              value={search}
+              onChange={({target: {value}}: any) => {
+                  setSearch(value)
+              }}
             />
           </Search>
     </div>
